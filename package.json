@@ -1,0 +1,30 @@
+{
+  "name": "cse340",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Neron56/cse340#readme",
+  "bugs": {
+    "url": "https://github.com/Neron56/cse340/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neron56/cse340.git"
+  },
+  "license": "ISC",
+  "author": "Michael Shaw",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "node": "^26.8.1",
+    "node-bin-setup": "^1.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
