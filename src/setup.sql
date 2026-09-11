@@ -88,11 +88,13 @@ VALUES
 
 CREATE TABLE categories(
 	category_ID SERIAL PRIMARY KEY,
-	name VARCHAR(150),
-)
+	name VARCHAR(150)
+);
 
-INSERT INTO categories(name)
+INSERT INTO categories (name)
 VALUES
-('Environmental')
-('Senior Support')
-('Arts')
+	('Community support'),
+	('Environment'),
+	('Education'),
+	('Donation & Assistance'),
+	('Animal Welfare');
