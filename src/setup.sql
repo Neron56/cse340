@@ -21,73 +21,73 @@ CREATE TABLE service_project(
 	date DATE	
 )
 INSERT INTO service_project 
-    (organization_id, title, description, location, date)
+    (organization_id, title, description, location, date, category_id)
 VALUES
     -- Organization 1
     (1, 'Community Food Drive',
      'Collect and organize donated food for local families in need.',
-     'Ogden Community Center', '2026-09-20'),
+     'Ogden Community Center', '2026-09-20', '4'),
 
     (1, 'Park Cleanup',
      'Help clean up litter and improve the appearance of a local park.',
-     'Lorin Farr Park', '2026-09-27'),
+     'Lorin Farr Park', '2026-09-27','2'),
 
     (1, 'Senior Center Assistance',
      'Assist seniors with activities, games, and basic center maintenance.',
-     'Ogden Senior Center', '2026-10-04'),
+     'Ogden Senior Center', '2026-10-04','4'),
 
     (1, 'Neighborhood Garden',
      'Plant and maintain a community garden for local residents.',
-     'West Ogden Community Garden', '2026-10-11'),
+     'West Ogden Community Garden', '2026-10-11','1'),
 
     (1, 'Clothing Donation Sort',
      'Sort and organize donated clothing for distribution to families.',
-     'Community Resource Center', '2026-10-18'),
+     'Community Resource Center', '2026-10-18','4'),
 
     -- Organization 2
     (2, 'Riverbank Restoration',
      'Remove trash and invasive plants along the local riverbank.',
-     'Ogden River Parkway', '2026-09-21'),
+     'Ogden River Parkway', '2026-09-21','2'),
 
     (2, 'Homeless Shelter Meal Service',
      'Prepare and serve meals to individuals staying at a local shelter.',
-     'Ogden Homeless Shelter', '2026-09-28'),
+     'Ogden Homeless Shelter', '2026-09-28','1'),
 
     (2, 'School Supply Drive',
      'Collect and organize school supplies for students in need.',
-     'Washington Elementary School', '2026-10-05'),
+     'Washington Elementary School', '2026-10-05','4'),
 
     (2, 'Trail Maintenance',
      'Clear debris and improve trails for community recreation.',
-     'Bonneville Shoreline Trail', '2026-10-12'),
+     'Bonneville Shoreline Trail', '2026-10-12','2'),
 
     (2, 'Community Recycling Event',
      'Help residents properly sort and recycle household materials.',
-     'Ogden Recreation Center', '2026-10-19'),
+     'Ogden Recreation Center', '2026-10-19','2'),
 
     -- Organization 3
     (3, 'Animal Shelter Volunteer Day',
      'Help clean animal areas and provide care for shelter animals.',
-     'Weber County Animal Shelter', '2026-09-22'),
+     'Weber County Animal Shelter', '2026-09-22','5'),
 
     (3, 'Habitat Restoration',
      'Plant native vegetation and restore a local natural habitat.',
-     'Ogden Nature Park', '2026-09-29'),
+     'Ogden Nature Park', '2026-09-29','2'),
 
     (3, 'Youth Mentoring Day',
      'Spend time with local youth through educational games and activities.',
-     'Ogden Youth Center', '2026-10-06'),
+     'Ogden Youth Center', '2026-10-06','1'),
 
     (3, 'Holiday Gift Collection',
      'Collect and organize donated gifts for children in local families.',
-     'Community Outreach Center', '2026-10-13'),
+     'Community Outreach Center', '2026-10-13','4'),
 
     (3, 'Community Painting Project',
      'Help paint and improve a shared community building.',
-     'Pleasant View Community Center', '2026-10-20');
+     'Pleasant View Community Center', '2026-10-20','1');
 
 CREATE TABLE categories(
-	category_ID SERIAL PRIMARY KEY,
+	category_id SERIAL PRIMARY KEY,
 	name VARCHAR(150)
 );
 
