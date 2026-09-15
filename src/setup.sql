@@ -98,3 +98,8 @@ VALUES
 	('Education'),
 	('Donation & Assistance'),
 	('Animal Welfare');
+
+SELECT title, s.category_id, c.name  FROM service_project s
+	JOIN categories c
+	ON s.category_id = c.category_id
+WHERE s.category_id = '1';
