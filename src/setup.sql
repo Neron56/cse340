@@ -14,7 +14,8 @@ VALUES
 
 CREATE TABLE service_project(
 	project_id SERIAL PRIMARY KEY,
-	organization_id INT REFERENCES organization(organization_id),
+	organization_id INT,
+    FOREIGN KEY (organization_id) REFERENCES organization(organization_id),
 	title VARCHAR(150),
 	description VARCHAR(255),
 	location VARCHAR(150),
