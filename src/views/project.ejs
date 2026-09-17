@@ -6,7 +6,7 @@
     <p>Description: <%= project[0].description %></p>
         <ul>
             <% categories.forEach(category => { %>
-                <li><a href="/category/<%= category.category_id %>"><%= category.name %></a></li>
+                <li><a href="/category/<%= category.category_id %>"><%= category.name %></a><br>Location:  <%= project[0].location%> <br> Date: <%= project[0].date%> </li>
             <% }); %>
         </ul>
 </main>
