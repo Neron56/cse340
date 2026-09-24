@@ -1,5 +1,5 @@
 // Import any needed model functions
-import { getAllOrganizations, getOrganizationDetails,createOrganization } from '../models/organizations.js';
+import { getAllOrganizations, getOrganizationDetails, createOrganization, updateOrganization } from '../models/organizations.js';
 import { getProjectsByOrganizationId } from '../models/projects.js';
 import { body, validationResult } from 'express-validator';
 
@@ -80,13 +80,13 @@ const showEditOrganizationForm = async (req,res) => {
 
 const processEditOrganizationForm = async (req,res) => {
     const organizationId = req.params.id;
-    const { name, description, contactEmail, logoFilename } = req.body;
+    const { name, description, contactEmail, logoFileName } = req.body;
 
-    await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
+    await updateOrganization(organizationId, name, description, contactEmail, logoFileName);
 
     req.flash('success', 'Organization updated successfully!')
 
-    res.redirect(`/organizations/${organizationId}`);
+    res.redirect(`/organization/${organizationId}`);
 }
 // Export any controller functions
 export {

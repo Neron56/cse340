@@ -71,14 +71,14 @@ const updateOrganization = async (organizationId, name, description, contactEmai
 
   if (result.rows.length === 0) {
     throw new Error('Organization not found');
-  }
+  };
 
   if (process.env.ENABLE_SQL_LOGGING === 'true') {
     console.log('Updated organization with ID:', organizationId);
-  }
+  };
 
   return result.rows[0].organization_id;
 };
 
 // Export the model functions
-export { getAllOrganizations, getOrganizationDetails, createOrganization };
+export { getAllOrganizations, getOrganizationDetails, createOrganization, updateOrganization };
