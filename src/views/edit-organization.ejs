@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
-
+    <h2><%= organizationDetails.name %></h2>
  <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
     <div class="form-group">
       <label for="name" >Organization Name</label>

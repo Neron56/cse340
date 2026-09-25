@@ -1,0 +1,69 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+    <h2><%= projectData[0].title %></h2>
+  <form action="/update-project/<%= projectData[0].project_id %>" method="POST">
+    <div class="form-group">
+      <label for="title" >Project Name</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        required
+        maxlength="150"
+        value="<%= projectData[0].title %>"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        required
+        maxlength="500"
+      ><%= projectData[0].description %></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input
+        type="text"
+        id="location"
+        name="location"
+        required
+        value="<%= projectData[0].location %>"
+      />
+    </div>
+
+    <div class="form-group">
+        <label for="date">Date</label>
+        <input
+            type="date"
+            id="date"
+            name="date"
+            maxlength="255"
+            required
+            value="<%= projectData[0].date %>"
+        />
+    </div>
+
+    <div class="form-group">
+      <label for="organizationId">Organization</label>
+      <select
+        id="organizationId"
+        name="organizationId"
+        required
+      >
+        <option value="">Select an organization</option>
+        <% organizations.forEach(org => { %>
+          <option value="<%= org.organization_id %>" <%= (org.organization_id === projectData[0].organization_id) ? 'selected' : '' %>><%= org.name %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <button type="submit">Edit Project</button>
+  </form>
+
+</main>
+<%- include('partials/footer') %>
