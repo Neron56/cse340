@@ -62,6 +62,19 @@
       </select>
     </div>
 
+    <% categories.forEach(category => { %>
+        <div>
+          <input
+            type="checkbox"
+            id="category-<%= category.category_id %>"
+            name="categoryIds"
+            value="<%= category.category_id %>"
+            <%= assignedCategories.some(ac => ac.category_id === category.category_id) ? 'checked' : '' %>
+          />
+          <label for="category-<%= category.category_id %>"><%= category.name %></label>
+        </div>
+      <% }); %>
+
     <button type="submit">Edit Project</button>
   </form>
 

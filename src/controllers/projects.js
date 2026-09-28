@@ -1,5 +1,5 @@
 // Import any needed model functions
-import { getCategoryByServiceProject } from '../models/categories.js';
+import { getAllCategories, getCategoryByServiceProject, updateCategoryAssignments } from '../models/categories.js';
 import { getAllServiceProjects, getProjectById, updateProject, createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
@@ -79,16 +79,21 @@ const processNewProjectForm = async (req, res) => {
 const showEditProjectForm = async (req,res) => {
     const projectId = req.params.id;
     const projectData = await getProjectById(projectId);
+    const assignedCategories = await getCategoryByServiceProject(projectId);
     const organizations = await getAllOrganizations();
+    const categories = await getAllCategories();
     const title = 'Edit service project';
 
-    res.render('update-project', {title, projectData, organizations})
+    res.render('update-project', {title, projectData, organizations, categories, assignedCategories})
 }
 
 const processEditProjectForm = async (req,res) => {
     const projectId = req.params.id;
     const { title, description, location, date, organizationId } = req.body;
-
+    const selectedCategoryIds = req.body.categoryIds || [];
+    const categoryIdsArray = Array.isArray(selectedCategoryIds) ? selectedCategoryIds : [selectedCategoryIds];
+    
+    await updateCategoryAssignments(projectId, categoryIdsArray);
     await updateProject(projectId, title, description, location, date, organizationId);
 
     req.flash('success', 'Service project updated successfully!')
