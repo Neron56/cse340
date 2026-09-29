@@ -21,8 +21,7 @@ CREATE TABLE service_project(
 	location VARCHAR(150),
 	date DATE	
 )
-INSERT INTO service_project 
-    (organization_id, title, description, location, date)
+INSERT INTO service_project (organization_id, title, description, location, date)
 VALUES
     -- Organization 1
     (1, 'Community Food Drive',
@@ -132,10 +131,21 @@ VALUES
     (14, 4), -- Holiday Gift Collection, Donation & Assistance
     (15, 1); -- Community Painting Project, Community Support
 
-SELECT title, c.name  FROM service_project s
-    JOIN service_project_category p
-    ON s.project_id = p.project_id
-	JOIN categories c
-	ON p.category_id = c.category_id
-WHERE p.category_id = '1'
-ORDER BY s.title;
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
+
+INSERT INTO roles (role_name, role_description) VALUES 
+    ('user', 'Standard user with basic access'),
+    ('admin', 'Administrator with full system access');
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER REFERENCES roles(role_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
