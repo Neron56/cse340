@@ -9,6 +9,8 @@
                 <li><a href="/category/<%= category.category_id %>"><%= category.name %></a><br>Location:  <%= project[0].location%> <br> Date: <%= project[0].date%> </li>
             <% }); %>
         </ul>
-        <p><a href="/update-project/<%= project[0].project_id %>">Update the Service Project</a></p>
+        <% if (user && user.role_name === 'admin') { %>
+            <p><a href="/update-project/<%= project[0].project_id %>">Update the Service Project</a></p>
+        <% } %>
 </main>
 <%- include('partials/footer') %>
