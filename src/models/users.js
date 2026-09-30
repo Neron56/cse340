@@ -57,7 +57,6 @@ const getAllUsers = async () => {
 
 const authenticateUser = async (email, password) => {
     const user = await findUserByEmail(email);
-    console.log(user);
     if(user){
         const verify = await verifyPassword(password, user.password_hash);
         if(verify){

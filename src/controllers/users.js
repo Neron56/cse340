@@ -36,7 +36,7 @@ const processLoginForm = async (req,res) => {
         const user = await authenticateUser(email, password);
         if(user){
             req.session.user = user;
-            req.flash(('success', 'Login Successful!'));
+            req.flash('success', 'Login Successful!');
 
             if (res.locals.NODE_ENV === 'development') {
                 console.log(user);
