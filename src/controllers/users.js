@@ -82,7 +82,7 @@ const requireRole = (role) => {
         req.flash('error', 'You must be logged in to access that page.');
         return res.redirect('/login');
     }
-    if(req.session.user.role_name != role){
+    if(req.session.user.role_name !== role){
         req.flash('error', 'You do not have permission to access to this page!');
         return res.redirect('/');
     }
