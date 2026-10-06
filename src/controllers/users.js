@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser, authenticateUser, getAllUsers } from '../models/users.js';
+import { createUser, authenticateUser, getAllUsers, userVolunteers, getUserVolunteeredProjects, removeVolunteer } from '../models/users.js';
 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
@@ -90,9 +90,10 @@ const requireRole = (role) => {
 }};
 
 const showDashboard = async (req,res) => {
-    const {name, email} = req.session.user;
+    const {name, email, user_id} = req.session.user;
     const title = "Dashboard";
-    res.render('dashboard', {title, name, email});
+    const projects = await getUserVolunteeredProjects(user_id);
+    res.render('dashboard', {title, name, email, projects});
 }
 
 const showUserList = async (req,res) => {
@@ -101,5 +102,33 @@ const showUserList = async (req,res) => {
     res.render('users', {title, users})
 }
 
+const processVolunteering = async (req,res) => {
+    const userId = req.session.user.user_id;
+    const projectId = req.params.id
+    try{
+        await userVolunteers(userId, projectId);
+        req.flash('success', 'Successfully volunteered for the project!');
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.error('Error during volunteering:', error);
+        req.flash('error',' An error occurred while trying to get you volunteered. Please try again.');
+        res.redirect(`/project/${projectId}`);
+    }
+};
 
-export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole, showUserList };
+const processRemovingProject = async (req,res) => {
+    const userId = req.session.user.user_id;
+    const projectId = req.params.id
+    try{
+        await removeVolunteer(userId, projectId);
+        req.flash('success', 'Successfully un-volunteered for the project!');
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.error('Error during volunteer removal:', error);
+        req.flash('error',' An error occurred while trying to get you volunteered. Please try again.');
+        res.redirect(`/project/${projectId}`);
+    }
+}
+
+
+export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole, showUserList, processVolunteering, processRemovingProject };

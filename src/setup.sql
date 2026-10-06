@@ -149,3 +149,11 @@ CREATE TABLE users (
     role_id INTEGER REFERENCES roles(role_id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE user_has_project(
+	user_id INT,
+	project_id INT,
+	PRIMARY KEY(project_id, user_id),
+	FOREIGN KEY (project_id) REFERENCES service_project(project_id),
+	FOREIGN KEY (user_id) REFERENCES users(user_id)
+)

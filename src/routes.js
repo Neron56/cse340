@@ -5,7 +5,7 @@ import { showOrganizationsPage, showOrganizationDetailsPage, showNewOrganization
 import { showProjectsPage, showProjectDetailsPage,processNewProjectForm,showNewProjectForm, showEditProjectForm, processEditProjectForm } from './controllers/projects.js';
 import { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm, showEditCategoryForm, processEditCategoryForm, showNewCategoryForm, processNewCategoryForm, categoryValidation } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-import { showUserRegistrationForm,processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, showDashboard, requireLogin, requireRole, showUserList } from './controllers/users.js';
+import { showUserRegistrationForm,processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, showDashboard, requireLogin, requireRole, showUserList, processVolunteering, processRemovingProject } from './controllers/users.js';
 
 const router = express.Router();
 
@@ -25,6 +25,8 @@ router.get('/new-project', requireRole('admin'), showNewProjectForm);
 // Route to handle new project form submission
 router.post('/new-project', requireRole('admin'), processNewProjectForm);
 router.get('/project/:id', showProjectDetailsPage);
+router.post('/project/:id/volunteer', requireLogin, processVolunteering);
+router.post('/project/:id/remove', requireLogin, processRemovingProject);
 router.get('/update-project/:id', requireRole('admin'), showEditProjectForm);
 router.post('/update-project/:id', requireRole('admin'), processEditProjectForm);
 router.get('/categories', showCategoriesPage);

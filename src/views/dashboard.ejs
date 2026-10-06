@@ -7,7 +7,15 @@
     <p>Name: <%= name %></p>
     <p>Username: <%= email %></p>
 
-     <% if (user && user.role_name === 'admin') { %>
+    <% projects.forEach(project => { %>
+        <div>
+            <h3><%= project.title %></h3>
+            <form action="/project/<%= project.project_id %>/remove" method="POST">
+                <button type="submit">Remove Project from Volunteer list</button>
+            </form>
+        </div>
+    <% }) %>
+    <% if (user && user.role_name === 'admin') { %>
         <p><a href="/users">View list of registered users</a></p>
     <% } %>
 </main>

@@ -70,7 +70,44 @@ const authenticateUser = async (email, password) => {
     };
 };
 
+const userVolunteers = async (userId, projectId) => {
+    const query = `
+    INSERT INTO user_has_project(user_id, project_id)
+    VALUES($1, $2)
+    RETURNING user_id`
+    const queryParams = [userId,projectId];
+    const result = await db.query(query, queryParams);
+    if (result.rows.length === 0) {
+        throw new Error('Failed to add to volunteer list');
+    }
+    
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Volunteered user to service project with ID:', result.rows[0].user_id);
+    }
+};
+
+const removeVolunteer = async (userId,projectId) => {
+    const query = `
+    DELETE FROM user_has_project
+    WHERE user_id = $1 AND project_id = $2`
+    const queryParams = [userId,projectId];
+    const result = await db.query(query, queryParams);
+    return result;
+};
+
+const getUserVolunteeredProjects = async (userId) => {
+    const query= `
+    SELECT p.title, p.project_id
+    FROM user_has_project u
+    JOIN service_project p
+    ON u.project_id = p.project_id
+    WHERE user_id = $1`
+    const queryParams = [userId];
+    const result = await db.query(query, queryParams);
+    return result.rows;
+}
+
 const verifyPassword = async (password, passwordHash) => {
     return bcrypt.compare(password, passwordHash);
 };
-export { createUser, findUserByEmail, authenticateUser, getAllUsers };
+export { createUser, findUserByEmail, authenticateUser, getAllUsers, userVolunteers, removeVolunteer, getUserVolunteeredProjects };
