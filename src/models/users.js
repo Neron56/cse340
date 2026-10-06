@@ -106,8 +106,17 @@ const getUserVolunteeredProjects = async (userId) => {
     const result = await db.query(query, queryParams);
     return result.rows;
 }
+const getSepecificUserVolunteeredProject = async (userId, projectId) => {
+    const query= `
+    SELECT user_id, project_id
+    FROM user_has_project 
+    WHERE user_id = $1 AND project_id = $2`
+    const queryParams = [userId, projectId];
+    const result = await db.query(query, queryParams);
+    return result.rows;
+}
 
 const verifyPassword = async (password, passwordHash) => {
     return bcrypt.compare(password, passwordHash);
 };
-export { createUser, findUserByEmail, authenticateUser, getAllUsers, userVolunteers, removeVolunteer, getUserVolunteeredProjects };
+export { createUser, findUserByEmail, authenticateUser, getAllUsers, userVolunteers, removeVolunteer, getUserVolunteeredProjects, getSepecificUserVolunteeredProject };

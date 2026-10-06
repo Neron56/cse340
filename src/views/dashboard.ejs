@@ -9,9 +9,9 @@
 
     <% projects.forEach(project => { %>
         <div>
-            <h3><%= project.title %></h3>
+            <h3><a href="/project/<%= project.project_id %>"><%= project.title %></a></h3>
             <form action="/project/<%= project.project_id %>/remove" method="POST">
-                <button type="submit">Remove Project from Volunteer list</button>
+                <button type="submit">Remove <%= project.title %> from Volunteer list</button>
             </form>
         </div>
     <% }) %>

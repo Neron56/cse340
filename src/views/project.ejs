@@ -13,6 +13,11 @@
             <form action="/project/<%= project[0].project_id %>/volunteer" method="POST">
                 <button type="submit">Volunteer for the Project</button>
             </form>
+            <% if (isVolunteered === true) { %>
+            <form action="/project/<%= project[0].project_id %>/remove" method="POST">
+                <button type="submit">Remove <%= project[0].title %> from Volunteer list</button>
+            </form>
+            <% } %>
         <% } %>
         <% if (user && user.role_name === 'admin') { %>
             <p><a href="/update-project/<%= project[0].project_id %>">Update the Service Project</a></p>

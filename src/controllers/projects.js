@@ -3,6 +3,7 @@ import { getAllCategories, getCategoryByServiceProject, updateCategoryAssignment
 import { getAllServiceProjects, getProjectById, updateProject, createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
+import { getSepecificUserVolunteeredProject } from '../models/users.js';
 
 const projectValidation = [
     body('title')
@@ -38,7 +39,19 @@ const showProjectDetailsPage = async (req, res) => {
     const project = await getProjectById(projectId);
     const categories = await getCategoryByServiceProject(projectId);
     const title = 'Project Details';
-    res.render('project', { title, project, categories });
+    let isVolunteered = false;
+    if (req.session.user) {
+        const userId = req.session.user.user_id
+        const volunteerCheck = await getSepecificUserVolunteeredProject(userId, projectId);
+        console.log(volunteerCheck);
+        if (volunteerCheck.length !== 0){
+            isVolunteered = true;
+        }else{
+            isVolunteered = false;
+        };
+    };
+    console.log(isVolunteered)
+    res.render('project', {title, project, categories, isVolunteered})
 }
 
 const showNewProjectForm = async (req, res) => {
